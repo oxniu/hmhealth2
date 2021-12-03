@@ -343,9 +343,10 @@ def run(msg):
         data = json.dumps(data)
         #req_urls = req_url + get_access_token()
         #resp = requests.post(url=req_urls, data=data).text
-        print(resp)
+        #print(resp)
         #print(data)
-        return resp
+        #return resp
+        return
     else:
         return
 

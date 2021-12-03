@@ -341,8 +341,8 @@ def run(msg):
             "duplicate_check_interval": 1800
         }
         data = json.dumps(data)
-        req_urls = req_url + get_access_token()
-        resp = requests.post(url=req_urls, data=data).text
+        #req_urls = req_url + get_access_token()
+        #resp = requests.post(url=req_urls, data=data).text
         print(resp)
         #print(data)
         return resp

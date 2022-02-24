@@ -19,7 +19,7 @@ agentid = sys.argv[8]  # 填写你的应用ID，不加引号，是个整型常�
 touser = sys.argv[9]  # 指定接收消息的成员，成员ID列表（多个接收者用‘|’分隔，最多支持1000个）。特殊情况：指定为”@all”，则向该企业应用的全部成员发送
 toparty = sys.argv[10]  # 指定接收消息的部门，部门ID列表，多个接收者用‘|’分隔，最多支持100个。当touser为”@all”时忽略本参数
 totag = sys.argv[11]  # 指定接收消息的标签，标签ID列表，多个接收者用‘|’分隔，最多支持100个。当touser为”@all”时忽略本参数
-print(sys.argv[2])
+
 # （用于测试推送如果改了能收到推送，推送设置就没问题，看看是不是set_push列表里面没设置推送，仔细看下面我写的很详细）要修改的步数，直接输入想要修改的步数值，（默认）留空为随机步数，改了这个直接运行固定值（用于测试推送）
 # 测试好记得留空不然一直提交固定步数
 step1 = ""
@@ -37,16 +37,16 @@ K_dict = {"多云": 0.9, "阴": 0.8, "小雨": 0.7, "中雨": 0.5, "大雨": 0.4
 # 设置运行程序时间点,24小时制（不要设置0，1，2可能会发生逻辑错误），这边设置好云函数触发里也要改成相同的小时运行，与time_list列表对应，如默认：30 0 8,10,13,15,17,19,21 * * * *，不会的改8,10,13,15,17,19,21就行替换成你要运行的时间点，其它复制
 # 默认表示为8点10点13点15点17点19点21点运行,如需修改改time_list列表，如改成：time_list = [7, 9, 13, 15, 17, 19, 20]就表示为7点9点13点15点17点19点20点运行，云函数触发里面也要同步修改
 # 说白了不是刷七次嘛,你希望在什么时候刷,设七个时间点，不要该成0，1，2（就是不要设置0点1点2点运行），其它随便改。如果要刷的次数小于7次多余的时间点不用改保持默认就行如只需要4次就改前4个，但函数触发里面要改成4个的，不能用7个的
-time_list = [0, 8, 9, 10, 11, 13, 17]
+time_list = [7, 8, 9, 10, 11, 13, 17]
 
 # 设置运行结果推送不推送与上面时间一一对应，如：set_push列表内的第一个值与time_list列表内的第一个时间点对应，该值单独控制该时间点的推送与否（默认表示为21点（就是设置的最后一个时间点）推送其余时间运行不推送结果）
 # 也是改列表内的False不推送，True推送，每个对应上面列表的一个时间点，如果要刷的次数小于7次同样改前几个其它默认
 set_push = [True, True, True, True, True, True, True]
 
 # 最小步数（如果只需要刷步的次数少于7次就将该次数以后的步数全都改成0，如：time_list[3]: 0，表示第五次开始不运行或者直接云函数触发里面不在该时间调用均可（建议用后者））
-min_dict = {time_list[0]: 20000, time_list[1]: 10000, time_list[2]: 20000, time_list[3]: 30000, time_list[4]: 40000, time_list[5]: 50000, time_list[6]: 60000}
+min_dict = {time_list[0]: 6000, time_list[1]: 10000, time_list[2]: 20000, time_list[3]: 30000, time_list[4]: 40000, time_list[5]: 50000, time_list[6]: 60000}
 # 最大步数（例如现在设置意思是在8点（你设置的第一个时间点默认8）运行会在1500到2999中随机生成一个数提交（开启气候降低步数会乘系数K）10点3000~4999。。。以此类推，步数范围建议看懂了再改，没看懂直接默认就好）
-max_dict = {time_list[0]: 29999, time_list[1]: 19999, time_list[2]: 29999, time_list[3]: 39999, time_list[4]: 49999, time_list[5]: 59999, time_list[6]: 69999}
+max_dict = {time_list[0]: 9999, time_list[1]: 19999, time_list[2]: 29999, time_list[3]: 39999, time_list[4]: 49999, time_list[5]: 59999, time_list[6]: 69999}
 # 设置结束
 #now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 # 北京时间
@@ -179,7 +179,6 @@ def get_code(location):
 # 登录
 def login(user, password):
     url1 = "https://api-user.huami.com/registrations/+86" + user + "/tokens"
-    print(password)
     headers = {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2"

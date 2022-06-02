@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 import requests, time, datetime, re,sys, json, random
+from random import randint
 
 # 设置开始
 # 用户名（格式为 13800138000）

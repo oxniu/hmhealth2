@@ -101,8 +101,8 @@ def getBeijinTime():
     passwd_mi = sys.argv[2]
     user_list = user_mi.split('#')
     passwd_list = passwd_mi.split('#')
-    min_1 = randint(5000,5000)
-    max_1 = randint(6000,6000)
+    min_1 = randint(10000,10000)
+    max_1 = randint(20000,20000)
     msg_mi = ""
     msg_mi += main(user_mi,passwd_mi,min_1, max_1)
     print(msg_mi)
